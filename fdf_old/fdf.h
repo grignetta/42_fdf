@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:00:54 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/01/29 21:37:36 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/01/30 22:19:01 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,34 @@
 
 //#include "libft/libft.h"
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
 typedef struct s_fdf
 {
 	int	width;
 	int height;
 	int **z_matrix;
 	int zoom;
+	int z_zoom;
 	int color;
+	int color_delta;
+	double angle;
+	int isometric;
+	int x_shift;
+	int y_shift;
+	int win_width;
+	int win_height;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		img_side;
+	t_data	image;
 }	t_fdf;
 
 typedef struct s_bres_param
@@ -66,6 +84,9 @@ void bresenham(t_bres_param *params, t_fdf *data);
 void	draw(t_fdf *data);
 void drawline(float x, float y, float x1, float y1, t_fdf *data);
 void	isometric(int *x, int *y, int z);
-void draw_bresenham(t_bres_param *params, t_fdf *data);
+void draw_bresenham(t_bres_param *params, t_fdf *data, int z, int z1);
+void init_data(t_fdf *data);
+void	img_pix_put(t_fdf *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

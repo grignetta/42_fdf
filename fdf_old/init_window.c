@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:20:29 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/01/29 10:42:44 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:23:25 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,9 @@ bool	read_file(char *file_name, t_fdf *data)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return(free_matrix(data->z_matrix), true);
+			return(free_matrix(data->z_matrix), close(fd), true);
 		if(fill_matrix(data->z_matrix[i++], line))
-			return(free_matrix(data->z_matrix), true);
+			return(free_matrix(data->z_matrix), close(fd), true);
 		free(line);
 	}
 	close(fd);
