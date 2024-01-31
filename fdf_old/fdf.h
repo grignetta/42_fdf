@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:00:54 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/01/30 22:19:01 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/01/31 21:03:04 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ typedef struct s_fdf
 
 typedef struct s_bres_param
 {
-	int x1;
-	int y1;
 	int x0;
+	int x1;
+	int xstart;
 	int y0;
+	int y1;
+	int ystart;
 	int dx;
 	int dy;
 	int sx;
@@ -88,5 +90,8 @@ void draw_bresenham(t_bres_param *params, t_fdf *data, int z, int z1);
 void init_data(t_fdf *data);
 void	img_pix_put(t_fdf *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+void clear_window(t_fdf *data);
+void	key_event(int keycode, t_fdf *data);
 
 #endif
