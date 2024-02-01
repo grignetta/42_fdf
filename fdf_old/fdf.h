@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:00:54 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/01/31 21:03:04 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:23:29 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include<stdlib.h>
 # include<mlx.h>
 # include<math.h>
+
+#define min(a,b) ((a) < (b) ? (a) : (b))
+#define max(a,b) ((a) > (b) ? (a) : (b))
 
 # include "get_next_line.h"
 
@@ -50,6 +53,7 @@ typedef struct s_fdf
 	int y_shift;
 	int win_width;
 	int win_height;
+	int legend_offset;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -84,12 +88,14 @@ int	ft_atoi(const char *nptr); // add from libft
 int	ft_wdcount(char const *s, char c); //include to libft
 void bresenham(t_bres_param *params, t_fdf *data);
 void	draw(t_fdf *data);
+void    legend(t_fdf *data);
 void drawline(float x, float y, float x1, float y1, t_fdf *data);
-void	isometric(int *x, int *y, int z);
+void	isometric(int *x, int *y, int z, t_fdf *data);
 void draw_bresenham(t_bres_param *params, t_fdf *data, int z, int z1);
 void init_data(t_fdf *data);
 void	img_pix_put(t_fdf *data, int x, int y, int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void draw_rectangle(t_fdf *data, int x0, int y0, int width, int height, int color);
 
 void clear_window(t_fdf *data);
 void	key_event(int keycode, t_fdf *data);

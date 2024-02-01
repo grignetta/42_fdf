@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:20:29 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/01/30 15:23:25 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:25:34 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,7 @@ int	ft_wdcount(char const *s, char c) // include to libft
 	return (count);
 }
 
-bool	fill_matrix(int *z_line, char *line)
-{
-	char	**nums;
-	int	i;
 
-	nums = ft_split(line, ' ');
-	if (!nums)
-		return (true);
-	i = 0;
-	while (nums[i])
-	{
-		z_line[i] = ft_atoi(nums[i]);
-		free(nums[i]);
-		i++;
-	}
-	return(free(nums), false);
-}
 
 int	ft_atoi(const char *nptr) // add from libft
 {
@@ -131,9 +115,9 @@ t_fdf	*creat_matrix(char *file_name, t_fdf *data)
 	if (!data->z_matrix)
 		return (NULL);
 	int i = 0;
-	while (i <= data->height)
+	while (i < data->height)
 	{
-		data->z_matrix[i] = (int *)malloc(sizeof(int) * (data->width + 1));
+		data->z_matrix[i] = (int *)malloc(sizeof(int) * (data->width + 2));
 		if (!data->z_matrix[i])
 		{
 			free_matrix(data->z_matrix);
@@ -141,6 +125,7 @@ t_fdf	*creat_matrix(char *file_name, t_fdf *data)
 		}
 		i++;
 	}
+	data->z_matrix[i] = NULL;
 	return(data);
 }
 
@@ -167,24 +152,40 @@ bool	read_file(char *file_name, t_fdf *data)
 		free(line);
 	}
 	close(fd);
-	data->z_matrix[i] = NULL;
+	//data->z_matrix[i] = NULL;
 	return (false);
+}
+
+bool	fill_matrix(int *z_line, char *line)
+{
+	char	**nums;
+	int	i;
+	//int count;
+
+	//count = ft_wdcount(line, ' ');
+	nums = ft_split(line, ' ');
+	if (!nums)
+		return (true);
+	i = 0;
+	while (nums[i])// && --count)
+	{
+		z_line[i] = ft_atoi(nums[i]);
+		free(nums[i]);
+		i++;
+	}
+	z_line[i] = 0;
+	return(free(nums), false);
 }
 
 void	free_matrix(int **z_matrix)
 {
-	int	*temp;
-	int	*current;
+	int	i;
 
+	i = 0;
 	if (z_matrix == NULL)
 		return ;
-	current = *z_matrix;
-	while (current)
-	{
-		temp = current;
-		current++;
-		free(temp);
-	}
-	*z_matrix = NULL;
+	while (z_matrix[i])
+		free(z_matrix[i++]);
+	free(z_matrix);
 	return ;
 }
