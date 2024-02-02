@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:03:02 by dpadenko          #+#    #+#             */
-/*   Updated: 2023/12/16 17:23:32 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:04:42 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ char	*get_next_line(int fd)
 			return (extract_til_nl_or_end(&buff[fd]));
 		else if (!read_bytes)
 			return (NULL);
-		buff[fd] = ft_strjoin(buff[fd], read_bytes);
+		buff[fd] = ft_strjoin_gnl(buff[fd], read_bytes);
 	}
 }

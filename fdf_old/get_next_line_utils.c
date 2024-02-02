@@ -6,13 +6,14 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:03:30 by dpadenko          #+#    #+#             */
-/*   Updated: 2023/10/24 19:09:46 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:05:28 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+
+size_t	ft_strlen_gnl(char *s)
 {
 	size_t	i;
 
@@ -31,15 +32,16 @@ void	my_free(char **str)
 	*str = NULL;
 }
 
-char	*ft_strjoin(char *read_str, char *buff)
+char	*ft_strjoin_gnl(char *read_str, char *buff)
 {
 	size_t	i;
 	size_t	j;
 	char	*str;
 
-	if ((ft_strlen(read_str) + ft_strlen(buff)) == 0)
+	if ((ft_strlen_gnl(read_str) + ft_strlen_gnl(buff)) == 0)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(read_str) + ft_strlen(buff)) + 1));
+	str = malloc(sizeof(char) * ((ft_strlen_gnl(read_str) +
+	ft_strlen_gnl(buff)) + 1));
 	if (str == NULL)
 		return (my_free(&read_str), my_free(&buff), NULL);
 	i = 0;

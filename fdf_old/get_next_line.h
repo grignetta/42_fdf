@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 19:03:49 by dpadenko          #+#    #+#             */
-/*   Updated: 2023/10/24 19:11:42 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:03:43 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "./libft/libft.h"
 
-size_t	ft_strlen(char *str);
+size_t	ft_strlen_gnl(char *str);
 void	my_free(char **str);
-char	*ft_strjoin(char *read_str, char *buff);
+char	*ft_strjoin_gnl(char *read_str, char *buff);
 char	*del_buf_return_res(char **buffer, char *res, int len_to_del);
 char	*extract_til_nl_or_end(char **buff);
 char	*read_buff_size(int fd, char **buffer);

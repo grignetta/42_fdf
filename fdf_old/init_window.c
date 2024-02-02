@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:20:29 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/01 19:25:34 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:51:51 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_wdcount(char const *s, char c) // include to libft
 	i = 0;
 	word = 0;
 	count = 0;
-	while (i < ft_strlen((char *)s))
+	while (i < ft_strlen(s))
 	{
 		if (s[i] != c)
 		{
@@ -75,9 +75,7 @@ int	ft_wdcount(char const *s, char c) // include to libft
 	}
 	return (count);
 }
-
-
-
+/*
 int	ft_atoi(const char *nptr) // add from libft
 {
 	int	i;
@@ -104,11 +102,9 @@ int	ft_atoi(const char *nptr) // add from libft
 		return (-1 * number);
 	return (number);
 }
+*/
 t_fdf	*creat_matrix(char *file_name, t_fdf *data)
 {
-	int	fd;
-	char	*line;
-
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
 	data->z_matrix = (int **)malloc(sizeof(int*) * (data->height + 1));
