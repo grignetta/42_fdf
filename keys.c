@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:20:13 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 15:22:32 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:44:17 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	mouse_event(int button, int x, int y, t_fdf *data)
 		data->zoom += 5;
 	else if (button == 5)
 		data->zoom -= 5;
-	clear_window(data);
-	draw(data);
 	return (0);
 }
 
