@@ -12,44 +12,72 @@
 
 NAME=fdf
 CC=cc
-FLAGS=-Werror -Wextra -Wall
+CFLAGS=-Werror -Wextra -Wall -MMD -MP
+BUILD=build
+OBJDIR=$(BUILD)/obj
 
-SRC= draw.c \
-		draw_utils.c \
-		main.c \
-		keys.c \
-		colors.c \
-		init_window.c \
-		init_window_utils.c \
-		get_next_line.c \
-		get_next_line_utils.c
+SRCDIR=src
+INCDIR=include
 
-MLX_NAME = mlx
-MLX = $(MLX_PATH)$(MLX_NAME)
+LIBDIR=lib
+LIBFT_DIR=$(LIBDIR)/libft
+LIBFT=$(LIBFT_DIR)/libft.a
 
-LIBDIR=./libft
-LIBFT=$(LIBDIR)/libft.a
-OBJ=$(SRC:.c=.o)
+GNL_DIR=$(LIBDIR)/gnl
+GNL_BONUS_DIR=$(firstword $(wildcard $(GNL_DIR)/gnl_bonus))
 
-all: $(NAME)
+MLX_DIR=$(LIBDIR)/minilibx-linux
+MLX=$(MLX_DIR)/libmlx.a
 
-%.o: %.c
-	$(CC) $(FLAGS) -o $@ -c $< -I.
+SRCS=$(wildcard $(SRCDIR)/*.c)
+GNL_SRCS=$(wildcard $(GNL_BONUS_DIR)/*.c)
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(FLAGS) $(OBJ) -L$(LIBDIR) -lft -lXext -lX11 -l$(MLX_NAME) -lm -o $(NAME)
+OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o) \
+		$(GNL_SRCS:$(GNL_BONUS_DIR)/%.c=$(OBJDIR)/gnl/%.o)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBDIR) all
+DEPS=$(OBJS:.o=.d)
+
+INCLUDES=-I$(INCDIR) -I$(LIBFT_DIR) -I$(GNL_DIR) =-I$(GNL_BONUS_DIR) -I$(MLX_DIR)
+
+LDFLAGS=-L$(LIBFT_DIR) -lft \
+		-L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 .PHONY: clean fclean all re
 
+all: $(NAME)
+
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR) all
+
+$(MLX):
+	$(MAKE) -C $(MLX_DIR) all
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
+
+$(OBJDIR)/gnl/%.o: $(GNL_BONUS_DIR)/%.c | $(OBJDIR)/gnl
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/gnl:
+	mkdir -p $(OBJDIR)/gnl
+
 clean:
-	$(MAKE) -C $(LIBDIR) clean
-	rm -f $(OBJ)
+	$(RM) -r $(BUILD)
+	@if [ -d "$(LIBFT_DIR)" ]; then $(MAKE) -C $(LIBFT_DIR) clean; fi
+	@if [ -d "$(MLX_DIR)" ]; then $(MAKE) -C $(MLX_DIR) clean; fi
 
 fclean: clean
-	$(MAKE) -C $(LIBDIR) fclean
-	rm -f $(NAME)
+	$(RM) $(NAME)
+	@if [ -f "$(LIBFT)" ]; then $(MAKE) -C $(LIBFT_DIR) fclean; fi
 
 re: fclean all
+
+-include $(DEPS)
