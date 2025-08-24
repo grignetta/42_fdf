@@ -101,4 +101,5 @@ Examples:
 4. **Draw lines**: for each segment between neighboring points, a **Bresenham‑style** loop writes pixels into the **image buffer** (`my_mlx_pixel_put`), not directly to the screen.
 5. **Present**: once the whole frame is drawn into the buffer, it’s copied to the window using `mlx_put_image_to_window`. This avoids flicker and is much faster than drawing pixel‑by‑pixel to the window.
 6. **Events / loop**: keyboard & mouse events (zoom, move, rotate, etc.) update the view parameters; the next frame is rendered accordingly.
+
 P.S.: most of the information needed to use MiniLibX can be found here https://harm-smits.github.io/42docs/libs
