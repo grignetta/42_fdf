@@ -8,7 +8,7 @@ This is the classic **42** project implemented in **C** with **MiniLibX**, using
 ## ✨ Features
 
 - Read `.fdf` heightmap files (space‑separated **z** values).
-- Project 3D points to 2D (isometric switchs on with 'S' key).
+- Project 3D points to 2D (to apply isometric view use 'S' key).
 - Interactive view: zoom, rotate, move, adjust Z‑scale (altitude), quit.
 - Simple pixel plotting and line drawing (Bresenham‑style) with basic color handling.
 - Clean repo layout with `src/`, `include/`, `lib/` and a portable **Makefile**.
