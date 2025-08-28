@@ -1,7 +1,11 @@
 # FdF
 
 Render a 3D wireframe of a heightmap (a `.fdf` file) in a 2D window using an isometric projection.  
-This is the classic **42** project implemented in **C** with **MiniLibX**, using my own **libft** and **get_next_line (bonus)** as submodules.
+This is the classic **42** project implemented in **C** with **MiniLibX**, using my own **libft** as submodule.
+
+<p align="center">
+  <img src="assets/preview.png" width="720" alt="FdF preview">
+</p>
 
 ---
 
@@ -17,10 +21,9 @@ This is the classic **42** project implemented in **C** with **MiniLibX**, using
 
 ## 🔌 Submodules
 
-This repo uses three git submodules:
+This repo uses two git submodules:
 
-- **libft** → `lib/libft`  
-- **get_next_line** → `lib/gnl` (uses **bonus** sources inside `gnl_bonus/`)  
+- **libft** → `lib/libft` 
 - **minilibx-linux** → `lib/minilibx-linux` (MiniLibX is a small graphics lib used in 42 projects - an abstraction of the “X Window System” for Unix platforms)
 
 ### Clone with submodules
@@ -90,6 +93,7 @@ Examples:
 - **Z‑scale (altitude)**: `U` (up) / `D` (down)
 - **Rotate**: `A` (change viewing angle)
 - **Quit**: `Esc`, window close (X), or `Ctrl+C` in the terminal
+- **Color**: `C`, black&white/some predefined colors
 
 ---
 
