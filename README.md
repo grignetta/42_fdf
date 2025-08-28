@@ -5,7 +5,7 @@ This is the classic **42** project implemented in **C** with **MiniLibX**, using
 
 <p align="center">
   <a href="assets/preview@2x.png">
-    <img src="assets/preview@2x.png" width="960" alt="FdF preview (2x)">
+    <img src="assets/preview@2x.png" width="500" alt="FdF preview (2x)">
   </a>
 </p>
 
