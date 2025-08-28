@@ -4,7 +4,9 @@ Render a 3D wireframe of a heightmap (a `.fdf` file) in a 2D window using an iso
 This is the classic **42** project implemented in **C** with **MiniLibX**, using my own **libft** as submodule.
 
 <p align="center">
-  <img src="assets/preview.png" width="720" alt="FdF preview">
+  <a href="assets/preview@2x.png">
+    <img src="assets/preview@2x.png" width="960" alt="FdF preview (2x)">
+  </a>
 </p>
 
 ---
