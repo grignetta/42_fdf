@@ -6,13 +6,13 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:34:02 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 16:08:15 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:52:24 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_height(char *file_name)
+int	get_height(char *file_name, t_fdf *data)
 {
 	char	*line;
 	int		fd;
@@ -24,7 +24,7 @@ int	get_height(char *file_name)
 	height = 0;
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, data);
 		if (line == NULL)
 			break ;
 		height++;
@@ -34,7 +34,7 @@ int	get_height(char *file_name)
 	return (height);
 }
 
-int	get_width(char *file_name)
+int	get_width(char *file_name, t_fdf *data)
 {
 	int		width;
 	int		fd;
@@ -43,7 +43,9 @@ int	get_width(char *file_name)
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd == -1)
 		return (0);
-	line = get_next_line(fd);
+	line = get_next_line(fd, data);
+	if (!line)
+		return (0);
 	width = ft_wdcount(line, ' ');
 	free(line);
 	close(fd);

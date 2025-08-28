@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+         #
+#    By: dpadenko <dpadenko@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/02 20:29:27 by dpadenko          #+#    #+#              #
-#    Updated: 2024/02/03 14:32:45 by dpadenko         ###   ########.fr        #
+#    Updated: 2025/08/28 17:31:22 by dpadenko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,21 +23,20 @@ LIBDIR=lib
 LIBFT_DIR=$(LIBDIR)/libft
 LIBFT=$(LIBFT_DIR)/libft.a
 
-GNL_DIR=$(LIBDIR)/gnl
-GNL_BONUS_DIR=$(firstword $(wildcard $(GNL_DIR)/gnl_bonus))
+GNL_DIR=$(LIBDIR)/gnl_fdf
 
 MLX_DIR=$(LIBDIR)/minilibx-linux
 MLX=$(MLX_DIR)/libmlx.a
 
 SRCS=$(wildcard $(SRCDIR)/*.c)
-GNL_SRCS=$(wildcard $(GNL_BONUS_DIR)/*.c)
+GNL_SRCS=$(wildcard $(GNL_DIR)/*.c)
 
 OBJS=$(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o) \
-		$(GNL_SRCS:$(GNL_BONUS_DIR)/%.c=$(OBJDIR)/gnl/%.o)
+		$(GNL_SRCS:$(GNL_DIR)/%.c=$(OBJDIR)/gnl_fdf/%.o)
 
 DEPS=$(OBJS:.o=.d)
 
-INCLUDES=-I$(INCDIR) -I$(LIBFT_DIR) -I$(GNL_DIR) =-I$(GNL_BONUS_DIR) -I$(MLX_DIR)
+INCLUDES=-I$(INCDIR) -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(MLX_DIR)
 
 LDFLAGS=-L$(LIBFT_DIR) -lft \
 		-L$(MLX_DIR) -lmlx -lXext -lX11 -lm
@@ -59,15 +58,15 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
-$(OBJDIR)/gnl/%.o: $(GNL_BONUS_DIR)/%.c | $(OBJDIR)/gnl
+$(OBJDIR)/gnl_fdf/%.o: $(GNL_DIR)/%.c | $(OBJDIR)/gnl_fdf
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-$(OBJDIR)/gnl:
-	mkdir -p $(OBJDIR)/gnl
+$(OBJDIR)/gnl_fdf:
+	mkdir -p $(OBJDIR)/gnl_fdf
 
 clean:
 	$(RM) -r $(BUILD)

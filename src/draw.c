@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 18:32:49 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 14:11:30 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/04 17:04:40 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	draw_lines(t_fdf *data)
 	while (++y < data->height)
 	{
 		x = -1;
-		while (++x <= data->width)
+		while (++x < data->width)
 		{
 			params.x0 = x;
 			params.y0 = y;
 			params.x1 = x + 1;
 			params.y1 = y;
-			if (x < data->width)
+			if (x < data->width - 1)
 				bresenham(&params, data);
 			params.x0 = x;
 			params.y0 = y;

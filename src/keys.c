@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:20:13 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 16:44:17 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/04 16:46:06 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	key_event(int keycode, t_fdf *data)
 	if (keycode == 105)
 		data->zoom += 5;
 	if (keycode == 111)
-		data->zoom -= 5;
+	{
+		if (data->zoom >= 5)
+			data->zoom -= 5;
+	}
 	if (keycode == 117)
 		data->z_zoom += 0.5;
 	if (keycode == 100)
@@ -64,7 +67,10 @@ int	mouse_event(int button, int x, int y, t_fdf *data)
 	if (button == 4)
 		data->zoom += 5;
 	else if (button == 5)
-		data->zoom -= 5;
+	{
+		if (data->zoom >= 5)
+			data->zoom -= 5;
+	}
 	return (0);
 }
 

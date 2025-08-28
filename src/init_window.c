@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:20:29 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 15:25:28 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:51:58 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@ t_fdf	*creat_matrix(char *file_name, t_fdf *data)
 {
 	int	i;
 
-	data->height = get_height(file_name);
-	data->width = get_width(file_name);
+	data->width = get_width(file_name, data);
+	if (!data->width)
+		return (NULL);
 	data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
 	if (!data->z_matrix)
 		return (NULL);
 	i = 0;
 	while (i < data->height)
+		data->z_matrix[i++] = NULL;
+	i = 0;
+	while (i < data->height)
 	{
-		data->z_matrix[i] = (int *)malloc(sizeof(int) * (data->width + 2));
+		data->z_matrix[i] = (int *)malloc(sizeof(int) * (data->width + 1));
 		if (!data->z_matrix[i])
-		{
-			free_matrix(data->z_matrix);
 			return (NULL);
-		}
 		i++;
 	}
 	data->z_matrix[i] = NULL;
@@ -43,22 +44,25 @@ bool	read_file(char *file_name, t_fdf *data)
 	int		i;
 
 	i = 0;
-	data->height = get_height(file_name);
-	if (!creat_matrix(file_name, data))
+	data->height = get_height(file_name, data);
+	if (data->height == 0)
 		return (true);
+	if (!creat_matrix(file_name, data))
+		return (get_next_line(-1, data), true);
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd == -1)
-		return (free_matrix(data->z_matrix), true);
+		return (get_next_line(-1, data), true);
 	while (i < data->height)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd, data);
 		if (!line)
 			return (free_matrix(data->z_matrix), close(fd), true);
 		if (fill_matrix(data->z_matrix[i++], line))
-			return (free_matrix(data->z_matrix), close(fd), true);
+			return (free(line), close(fd), get_next_line(-1, data), true);
 		free(line);
 	}
-	close(fd);
+	if (close(fd) == -1)
+		return (free_matrix(data->z_matrix), true);
 	return (false);
 }
 
@@ -77,7 +81,6 @@ bool	fill_matrix(int *z_line, char *line)
 		free(nums[i]);
 		i++;
 	}
-	z_line[i] = 0;
 	return (free(nums), false);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpadenko <dpadenko@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:00:54 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 16:00:08 by dpadenko         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:30:04 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <math.h>
 
 # include "get_next_line.h"
-# include "./libft/libft.h"
+# include "libft.h"
 
 typedef struct s_data
 {
@@ -85,8 +85,8 @@ t_fdf	*initialize_matrix(char *filename);
 void	init_data(t_fdf *data);
 bool	read_file(char *file_name, t_fdf *data);
 t_fdf	*creat_matrix(char *file_name, t_fdf *data);
-int		get_height(char *file_name);
-int		get_width(char *file_name);
+int		get_height(char *file_name, t_fdf *data);
+int		get_width(char *file_name, t_fdf *data);
 int		ft_wdcount(char const *s, char c);
 bool	fill_matrix(int *z_line, char *line);
 

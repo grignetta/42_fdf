@@ -6,7 +6,7 @@
 /*   By: dpadenko <dpadenko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:49:25 by dpadenko          #+#    #+#             */
-/*   Updated: 2024/02/03 15:30:07 by dpadenko         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:13:24 by dpadenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@ t_fdf	*initialize_matrix(char *filename)
 	t_fdf	*data;
 
 	data = (t_fdf *)malloc(sizeof(t_fdf));
+	if (!data)
+		return (free(data), NULL);
 	if (read_file(filename, data))
-		return (NULL);
+	{
+		write(1, "error\n", 6);
+		return (free(data), NULL);
+	}
 	init_data(data);
 	return (data);
 }
@@ -47,7 +52,7 @@ int	initialize_graphics(t_fdf *data)
 			data->win_height,
 			"FDF");
 	if (data->win_ptr == NULL)
-		return (1);
+		return (mlx_destroy_display(data->mlx_ptr), free(data->mlx_ptr), 1);
 	return (0);
 }
 
@@ -63,7 +68,7 @@ int	initialize_image(t_fdf *data)
 			&data->image.line_length,
 			&data->image.endian);
 	if (data->image.addr == NULL)
-		return (1);
+		return (mlx_destroy_image(data->mlx_ptr, data->image.img), 1);
 	return (0);
 }
 
@@ -71,7 +76,7 @@ int	main(int argc, char **argv)
 {
 	t_fdf	*data;
 
-	if (argc > 1)
+	if (argc == 2)
 	{
 		data = initialize_matrix(argv[1]);
 		if (data == NULL)
@@ -79,8 +84,10 @@ int	main(int argc, char **argv)
 		if (initialize_graphics(data))
 			return (free_matrix(data->z_matrix), free(data), 1);
 		if (initialize_image(data))
-			return (free(data->win_ptr), mlx_destroy_display(data->mlx_ptr),
-				free_matrix(data->z_matrix), free(data), 1);
+			return (mlx_destroy_window(data->mlx_ptr, data->win_ptr),
+				mlx_destroy_display(data->mlx_ptr), free(data->mlx_ptr),
+				free_matrix(data->z_matrix),
+				free(data), 1);
 		draw(data);
 		mlx_mouse_hook(data->win_ptr, mouse_event, data);
 		mlx_hook(data->win_ptr, 2, 1, handle_input, data);
@@ -88,4 +95,6 @@ int	main(int argc, char **argv)
 		mlx_loop_hook(data->mlx_ptr, update, data);
 		mlx_loop(data->mlx_ptr);
 	}
+	else
+		return (write(1, "error\n", 6), 1);
 }

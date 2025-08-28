@@ -3,9 +3,4 @@
 	url = https://github.com/42Paris/minilibx-linux
 [submodule "lib/libft"]
 	path = lib/libft
-	url = https://github.com/grignetta/42_libft.git
-	branch = master
-[submodule "lib/gnl"]
-	path = lib/gnl
-	url = https://github.com/grignetta/42_getnextline.git
-	branch = master
+	url = git@github.com:grignetta/42_libft.git
